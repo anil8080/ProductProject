@@ -1,0 +1,38 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ProductsProject.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+<h2>Category List</h2>
+
+<p>
+  <a class="btn btn-success" href="@Url.Action("Create","Categories")">Add New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>CategoryId</th>
+        <th>CategoryName</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryId</td>
+            <td>@item.CategoryName</td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Edit","Categories",new {id=item.CategoryId})">Edit</a>
+                <a class="btn btn-info" href="@Url.Action("Details","Categories",new {id=item.CategoryId})">Details</a>
+                <a class="btn btn-danger" href="@Url.Action("Delete","Categories",new {id=item.CategoryId})">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
